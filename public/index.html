@@ -17,7 +17,7 @@
     </a>
     <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
     <nav class="menu" id="menu">
-      <a href="#inicio">Início</a><a href="#sobre">A clínica</a><a href="#servicos">Serviços</a><a href="#equipe">Nossa equipe</a><a href="#dicas">Dicas</a><a class="menu-contato" href="#contato">Contato</a>
+      <a href="#inicio">Início</a><a href="#sobre">A clínica</a><a href="#servicos">Serviços</a><a href="#equipe">Nossa equipe</a><a href="#dicas">Dicas</a><a href="#agendamento">Agendamento</a><a class="menu-contato" href="#contato">Contato</a>
     </nav>
   </header>
 
@@ -27,7 +27,7 @@
         <span class="etiqueta">SAÚDE, PROTEÇÃO E CARINHO</span>
         <h1>Seu pet merece<br>uma vida <em>mais feliz.</em></h1>
         <p>Informação e cuidado em cada etapa da vida do seu melhor amigo. Conheça a clínica, nossos serviços e orientações para manter seu pet saudável.</p>
-        <div class="hero-acoes"><a class="botao" href="#servicos">Conheça os serviços <span>→</span></a><a class="link-seta" href="#sobre">Saiba mais sobre a clínica</a></div>
+        <div class="hero-acoes"><a class="botao" href="#agendamento">Agende uma consulta <span>→</span></a><a class="link-seta" href="#sobre">Saiba mais sobre a clínica</a></div>
         <div class="hero-destaques"><span>♡ Atendimento com carinho</span><span>✚ Saúde e prevenção</span></div>
       </div>
       <div class="hero-imagem"><img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1100&q=85" alt="Cachorro e gato juntos em um ambiente iluminado"><div class="selo"><strong>Amor</strong><span>em cada cuidado</span></div></div>
@@ -37,7 +37,7 @@
 
     <section class="secao sobre" id="sobre">
       <div class="sobre-foto"><img src="https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?auto=format&fit=crop&w=900&q=85" alt="Veterinária cuidando de um cachorro"></div>
-      <div class="sobre-texto"><span class="etiqueta">QUEM SOMOS</span><h2>Mais que atendimento,<br><em>uma relação de confiança.</em></h2><p>A Clínica Veterinária tem como propósito valorizar a saúde e o bem-estar dos animais. Acreditamos que informação, prevenção e cuidado responsável fazem toda a diferença na vida dos pets.</p><p>Nosso espaço informativo reúne detalhes sobre cuidados veterinários, serviços e orientações para ajudar você a cuidar melhor do seu companheiro.</p><a class="link-seta" href="#contato">Fale com a clínica →</a></div>
+      <div class="sobre-texto"><span class="etiqueta">QUEM SOMOS</span><h2>Mais que atendimento,<br><em>uma relação de confiança.</em></h2><p>A Clínica Veterinária tem como propósito valorizar a saúde e o bem-estar dos animais. Acreditamos que informação, prevenção e cuidado responsável fazem toda a diferença na vida dos pets.</p><p>Nosso espaço informativo reúne detalhes sobre cuidados veterinários, serviços e orientações para ajudar você a cuidar melhor do seu companheiro.</p><a class="link-seta" href="#agendamento">Agende uma consulta →</a></div>
     </section>
 
     <section class="secao servicos" id="servicos">
@@ -75,10 +75,26 @@
       </div>
     </section>
 
+
+    <section class="secao agendamento" id="agendamento">
+      <div class="cabecalho-secao"><span class="etiqueta">CUIDE DE QUEM VOCÊ AMA</span><h2>Cadastre seu pet e<br><em>solicite um agendamento.</em></h2><p>Preencha os dados do tutor, do animal e escolha o melhor horário disponível.</p></div>
+      <form id="formAgendamento" class="form-agendamento">
+        <h3>1. Dados do tutor</h3>
+        <div class="campos-form"><label>Nome completo<input name="tutorNome" required maxlength="100" placeholder="Seu nome"></label><label>Telefone<input name="telefone" required maxlength="25" placeholder="(00) 00000-0000"></label><label class="campo-largo">E-mail<input name="email" type="email" maxlength="120" placeholder="voce@email.com"></label></div>
+        <h3>2. Dados do animal</h3>
+        <div class="campos-form"><label>Nome do pet<input name="animalNome" required maxlength="80" placeholder="Nome do animal"></label><label>Espécie<select name="especie" required><option value="">Selecione</option><option value="Cachorro">Cachorro</option><option value="Gato">Gato</option><option value="Ave">Ave</option><option value="Outro">Outro</option></select></label><label>Raça<input name="raca" maxlength="80" placeholder="Raça (opcional)"></label><label>Idade (anos)<input name="idade" type="number" min="0" max="100" placeholder="Ex.: 3"></label></div>
+        <h3>3. Agendamento</h3>
+        <div class="campos-form"><label>Profissional<select name="veterinario_id" id="veterinarioSelect" required><option value="">Carregando profissionais...</option></select></label><label>Data e horário<input name="data_hora" id="dataHora" type="datetime-local" required></label><label class="campo-largo">Motivo da consulta<textarea name="motivo" required maxlength="500" rows="3" placeholder="Conte brevemente o que seu pet precisa"></textarea></label></div>
+        <button class="botao" id="btnAgendar" type="submit">Enviar solicitação <span>→</span></button>
+        <p class="retorno-form" id="retornoAgendamento" role="status" aria-live="polite"></p>
+        <small class="aviso-form">O envio registra a solicitação no sistema. A clínica deverá confirmar o agendamento com você.</small>
+      </form>
+    </section>
+
     <section class="contato" id="contato"><div><span class="etiqueta etiqueta-clara">ESTAMOS AQUI PARA AJUDAR</span><h2>O cuidado do seu pet<br>começa com informação.</h2><p>Entre em contato para consultar horários, endereço e disponibilidade de atendimento.</p></div><a class="botao botao-claro" href="mailto:">Entrar em contato <span>→</span></a></section>
   </main>
 
-  <footer class="rodape"><a class="marca marca-rodape" href="#inicio"><span class="marca-icone">✚</span><span>Clínica <strong>Veterinária</strong><small>CUIDADO QUE FAZ BEM</small></span></a><p>Informação, prevenção e carinho pela saúde dos animais.</p><div class="rodape-links"><a href="#sobre">A clínica</a><a href="#servicos">Serviços</a><a href="#dicas">Dicas</a><a href="#contato">Contato</a></div><small>© <span id="ano"></span> Clínica Veterinária. Todos os direitos reservados.</small></footer>
+  <footer class="rodape"><a class="marca marca-rodape" href="#inicio"><span class="marca-icone">✚</span><span>Clínica <strong>Veterinária</strong><small>CUIDADO QUE FAZ BEM</small></span></a><p>Informação, prevenção e carinho pela saúde dos animais.</p><div class="rodape-links"><a href="#sobre">A clínica</a><a href="#servicos">Serviços</a><a href="#dicas">Dicas</a><a href="#agendamento">Agendamento</a><a href="#contato">Contato</a></div><small>© <span id="ano"></span> Clínica Veterinária. Todos os direitos reservados.</small></footer>
   <script src="script.js"></script>
 </body>
 </html>
