@@ -1,285 +1,92 @@
-# Guia de banco de dados SQLite e adaptação de rotas (SAEP)
+# Guia básico — Banco de dados, CRUD e rotas (SAEP)
 
-Este guia é um roteiro de estudo para adaptar a base a um novo enunciado. Leia o enunciado e as regras da avaliação antes de reutilizar qualquer material. Preserve os arquivos existentes e faça alterações em uma branch de trabalho.
+Este guia reúne os passos essenciais para começar um sistema. Use o enunciado da prova como referência e adapte os nomes e as funcionalidades ao tema solicitado.
 
-## Parte A — Banco de dados SQLite
+## 1. Criar e configurar um banco de dados
 
-### 1. Antes de criar o banco, leia o enunciado
+- Identifique quais informações o sistema precisa guardar.
+- Crie uma tabela para cada grupo de informações (por exemplo: usuarios, produtos e movimentacoes).
+- Defina um campo `id` como chave primária.
+- Use chaves estrangeiras quando uma tabela depender de outra.
+- Configure a conexão com o banco no Node.js.
 
-Anote o nome exato do banco solicitado, as informações que precisam ser armazenadas, os cadastros, as operações, os campos obrigatórios, as regras de validação, os relacionamentos e a quantidade de registros de exemplo exigida em cada tabela. Não invente tabelas ou regras que não foram pedidas.
+Exemplo básico de tabela SQLite:
 
-### 2. Identifique entidades, campos e chaves
+```sql
+CREATE TABLE IF NOT EXISTS produtos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL,
+    quantidade INTEGER NOT NULL
+);
+```
 
-Exemplo ilustrativo para veterinária, caso o enunciado peça esse escopo:
+## 2. Fazer cadastro, consulta, edição e exclusão (CRUD)
 
-| Entidade | Campos possíveis | Relacionamento |
+CRUD representa as quatro operações principais de um sistema:
+
+| Operação | SQL | Para que serve |
 |---|---|---|
-| tutores | id, nome, telefone | PK id |
-| animais | id, tutor_id, nome, especie | PK id; FK tutor_id |
-| veterinarios | id, nome, crmv | PK id |
-| consultas | id, animal_id, veterinario_id, data_hora, status | FKs para animais e veterinarios |
+| Cadastrar | INSERT | Adicionar um registro |
+| Consultar | SELECT | Listar ou buscar registros |
+| Editar | UPDATE | Alterar um registro |
+| Excluir | DELETE | Remover um registro |
 
-Cada tabela representa uma entidade ou associação. Defina PK, FK, cardinalidades e tipos coerentes. Relações muitos-para-muitos normalmente precisam de uma tabela associativa. Use NOT NULL, UNIQUE, CHECK e valores padrão quando fizer sentido e estiver de acordo com o enunciado.
+Exemplo:
 
-### 3. Nomeie e crie o banco
+```sql
+INSERT INTO produtos (nome, quantidade) VALUES ('Caderno', 10);
+SELECT * FROM produtos;
+UPDATE produtos SET quantidade = 15 WHERE id = 1;
+DELETE FROM produtos WHERE id = 1;
+```
 
-Se o enunciado especificar o nome, use-o exatamente. Se não especificar, escolha um nome claro, por exemplo clinica_veterinaria.db. Mantenha o arquivo em uma única pasta definida, como database/ ou src/database/.
+## 3. Criar e modificar rotas no Node.js
 
-### 4. Exemplo de script SQL
+As rotas recebem as solicitações do front-end e executam ações no servidor.
 
-    PRAGMA foreign_keys = ON;
-
-    CREATE TABLE IF NOT EXISTS tutores (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        nome TEXT NOT NULL,
-        telefone TEXT
-    );
-
-    CREATE TABLE IF NOT EXISTS animais (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        tutor_id INTEGER NOT NULL,
-        nome TEXT NOT NULL,
-        especie TEXT NOT NULL,
-        FOREIGN KEY (tutor_id) REFERENCES tutores(id)
-    );
-
-    CREATE TABLE IF NOT EXISTS veterinarios (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        nome TEXT NOT NULL,
-        crmv TEXT NOT NULL UNIQUE
-    );
-
-    CREATE TABLE IF NOT EXISTS consultas (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        animal_id INTEGER NOT NULL,
-        veterinario_id INTEGER NOT NULL,
-        data_hora TEXT NOT NULL,
-        status TEXT NOT NULL DEFAULT 'Agendada',
-        FOREIGN KEY (animal_id) REFERENCES animais(id),
-        FOREIGN KEY (veterinario_id) REFERENCES veterinarios(id)
-    );
-
-Este é apenas um exemplo. Adapte tabelas, colunas, restrições e relacionamentos ao problema real.
-
-### 5. Conecte o SQLite no Node.js
-
-Exemplo com better-sqlite3:
-
-    const Database = require("better-sqlite3");
-    const path = require("path");
-
-    const caminhoBanco = path.join(__dirname, "clinica_veterinaria.db");
-    const db = new Database(caminhoBanco);
-
-    db.pragma("foreign_keys = ON");
-
-    module.exports = db;
-
-Instale a dependência somente se o projeto ainda não tiver um driver SQLite:
-
-    npm install better-sqlite3
-
-Se o repositório já usa outro driver, mantenha o padrão existente em vez de instalar um segundo.
-
-### 6. Insira e confira os dados
-
-Insira a quantidade de registros solicitada em cada tabela. Confira com SELECT * FROM nome_da_tabela. Use PRAGMA foreign_key_check; para verificar integridade e PRAGMA table_info(nome_da_tabela); para conferir colunas.
-
-Cuidados:
-- Habilite chaves estrangeiras em cada conexão SQLite.
-- Use consultas parametrizadas; nunca concatene diretamente dados digitados pelo usuário no SQL.
-- Não armazene senhas em texto puro; use hash.
-- Antes de alterar uma tabela existente, faça cópia de segurança e planeje a migração.
-- Teste duplicidade, dados inválidos e exclusão de registros relacionados.
-
-### Checklist do banco
-
-- [ ] Nome conforme o enunciado.
-- [ ] Entidades e atributos identificados.
-- [ ] DER corresponde ao SQL.
-- [ ] PK e FK configuradas.
-- [ ] Tipos e restrições corretos.
-- [ ] Quantidade de registros exigida em cada tabela.
-- [ ] Integridade referencial conferida.
-- [ ] Dados continuam após reiniciar o servidor.
-
-## Parte B — Como analisar e adaptar rotas (API)
-
-### 1. Entenda o caminho completo
-
-Uma ação percorre normalmente:
-
-    HTML/JavaScript → rota Express → controller/regra → SQLite → resposta JSON → atualização da tela
-
-Antes de alterar uma rota, localize todos esses pontos. Mudar apenas o fetch no frontend não adianta se o backend continuar esperando o caminho antigo.
-
-### 2. Faça um inventário das rotas
-
-No VS Code, use Ctrl+Shift+F e procure por:
-- app.get( ou router.get(
-- app.post( ou router.post(
-- app.put( ou router.put(
-- app.delete( ou router.delete(
-- app.use(
-- fetch( no JavaScript do frontend.
-
-Registre método, caminho, finalidade, autenticação e tabela acessada.
-
-| Método | Rota | Finalidade |
+| Método | Exemplo de rota | Função |
 |---|---|---|
-| GET | /api/animais | Listar animais |
-| GET | /api/animais/:id | Consultar um animal |
-| POST | /api/animais | Cadastrar animal |
-| PUT | /api/animais/:id | Atualizar animal |
-| DELETE | /api/animais/:id | Excluir animal |
+| GET | /api/produtos | Consultar produtos |
+| POST | /api/produtos | Cadastrar produto |
+| PUT | /api/produtos/:id | Editar produto |
+| DELETE | /api/produtos/:id | Excluir produto |
 
-### 3. Entenda os métodos HTTP
+Ao modificar uma rota, confira também o arquivo em que ela é registrada no servidor.
 
-- GET: consultar dados; não deve alterar registros.
-- POST: criar registro ou executar operação.
-- PUT: atualizar um registro.
-- PATCH: atualizar parcialmente, se o projeto adotar esse padrão.
-- DELETE: excluir ou inativar conforme a regra.
+## 4. Conectar o JavaScript do front-end com a API
 
-Use respostas HTTP coerentes: 200 sucesso, 201 criação, 400 dados inválidos, 401 não autenticado, 403 sem permissão, 404 não encontrado e 500 erro inesperado. Não exponha detalhes internos ao usuário.
+Use `fetch()` para enviar solicitações para as rotas e receber os dados.
 
-### 4. Exemplo de rotas Express
+Exemplo de consulta:
 
-Exemplo didático com better-sqlite3. Ajuste os caminhos dos imports à estrutura real:
+```javascript
+const resposta = await fetch("/api/produtos");
+const produtos = await resposta.json();
+```
 
-    const express = require("express");
-    const router = express.Router();
-    const db = require("../database/conexao");
+Para enviar dados, use o método adequado e, normalmente, `JSON.stringify()` no corpo da solicitação.
 
-    // Listar animais
-    router.get("/", (req, res) => {
-        try {
-            const animais = db.prepare(
-                "SELECT id, nome, especie, tutor_id FROM animais ORDER BY id DESC"
-            ).all();
+## 5. Adaptar nomes de tabelas, campos e telas ao tema sorteado
 
-            res.json(animais);
-        } catch (erro) {
-            console.error(erro);
-            res.status(500).json({ erro: "Não foi possível listar animais." });
-        }
-    });
+Leia o enunciado e troque os exemplos pelos nomes do tema da prova.
 
-    // Cadastrar animal
-    router.post("/", (req, res) => {
-        const { nome, especie, tutor_id } = req.body;
+Exemplo:
+- Estoque: produtos, fornecedores e movimentacoes.
+- Biblioteca: livros, usuarios e emprestimos.
+- Oficina: veiculos, clientes e ordens_servico.
 
-        if (!nome || !especie || !tutor_id) {
-            return res.status(400).json({
-                erro: "Nome, espécie e tutor são obrigatórios."
-            });
-        }
+Lembre-se de adaptar os nomes em todos os lugares relacionados: banco de dados, rotas, JavaScript e telas.
 
-        try {
-            const resultado = db.prepare(
-                "INSERT INTO animais (nome, especie, tutor_id) VALUES (?, ?, ?)"
-            ).run(nome, especie, tutor_id);
+## 6. Testar se tudo funciona e corrigir erros
 
-            res.status(201).json({
-                id: resultado.lastInsertRowid,
-                mensagem: "Animal cadastrado com sucesso."
-            });
-        } catch (erro) {
-            console.error(erro);
-            res.status(400).json({ erro: "Não foi possível cadastrar o animal." });
-        }
-    });
+- Inicie o servidor e abra o sistema no navegador.
+- Teste cadastro, consulta, edição e exclusão.
+- Confira se os dados aparecem corretamente na tela e permanecem salvos no banco.
+- Teste também campos vazios e informações inválidas.
+- Se algo não funcionar, confira o terminal, o console do navegador, o caminho da rota e os nomes dos campos.
 
-    module.exports = router;
+## Resumo para a prova
 
-O exemplo presume um objeto de banco compatível com better-sqlite3. Se o projeto usa outro driver, adapte a sintaxe.
+**Banco de dados → CRUD → rotas Node.js → integração com o front-end → adaptação ao tema → testes.**
 
-### 5. Registre a rota no servidor
-
-No arquivo principal, como index.js ou server.js, confira se o middleware JSON vem antes das rotas:
-
-    app.use(express.json());
-    app.use("/api/animais", require("./src/routes/animais"));
-
-Ajuste o caminho do require à estrutura real. Evite registrar o mesmo endpoint duas vezes.
-
-### 6. Atualize o frontend
-
-Se o backend usa /api/animais, o frontend precisa chamar o mesmo caminho:
-
-    const resposta = await fetch("/api/animais");
-    const animais = await resposta.json();
-
-Para cadastrar:
-
-    const resposta = await fetch("/api/animais", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            nome: "Mel",
-            especie: "Cachorro",
-            tutor_id: 1
-        })
-    });
-
-    const resultado = await resposta.json();
-
-    if (!resposta.ok) {
-        throw new Error(resultado.erro || "Falha ao cadastrar");
-    }
-
-Se frontend e API estiverem em origens diferentes, configure URL base e CORS conforme o ambiente. Evite espalhar endereços fixos por vários arquivos.
-
-### 7. Equivalência de rotas entre temas
-
-A tabela mostra equivalências conceituais, não substituições automáticas:
-
-| Almoxarifado | Veterinária | Oficina |
-|---|---|---|
-| /api/produtos | /api/animais | /api/veiculos |
-| /api/movimentacoes | /api/consultas | /api/ordens-servico |
-| produto_id | animal_id | veiculo_id |
-| quantidade | data_hora/status | descricao/status |
-
-Ao mudar o tema, atualize em conjunto: caminho da rota, controller, validações, SQL, frontend, autenticação, testes e documentação.
-
-## Parte C — Roteiro de engenharia reversa
-
-Quando receber um sistema existente ou pouco documentado:
-
-1. Execute o projeto e registre o comportamento observado.
-2. Leia package.json e identifique dependências e scripts.
-3. Localize o arquivo de inicialização do servidor.
-4. Mapeie rotas e middlewares.
-5. Localize consultas SQL e tabelas usadas por cada rota.
-6. Relacione telas, chamadas fetch, endpoints, controllers e tabelas.
-7. Identifique autenticação, sessão, permissões e validações.
-8. Compare o comportamento observado com o enunciado.
-9. Faça alterações pequenas e rastreáveis.
-10. Execute testes de regressão para garantir que as funções existentes continuam funcionando.
-
-Mapa para preencher:
-
-| Tela/ação | Arquivo frontend | Método e rota | Controller/regra | Tabela(s) |
-|---|---|---|---|---|
-| Listar animais | [arquivo.js] | GET /api/animais | [arquivo/função] | animais |
-| [preencher] | [preencher] | [preencher] | [preencher] | [preencher] |
-
-### Checklist de rotas e integração
-
-- [ ] Rotas necessárias inventariadas.
-- [ ] Método HTTP e caminho correspondem ao frontend.
-- [ ] express.json() vem antes das rotas.
-- [ ] Rota consulta ou altera a tabela correta.
-- [ ] Dados validados no servidor.
-- [ ] Consultas SQL parametrizadas.
-- [ ] Autenticação e autorização aplicadas quando necessárias.
-- [ ] Respostas e códigos HTTP coerentes.
-- [ ] Testes positivos e negativos executados.
-- [ ] Funcionalidades antigas continuam funcionando.
-
-## Fluxo resumido
-
-Enunciado → requisitos → entidades/DER → SQLite/SQL → rotas/API → frontend → testes → documentação.
-
-Preserve os arquivos originais em uma branch separada e siga as regras da avaliação sobre materiais previamente preparados.
+Siga sempre os requisitos do enunciado e preserve as funcionalidades que já estiverem funcionando.
