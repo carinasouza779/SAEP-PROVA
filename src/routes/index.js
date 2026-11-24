@@ -24,7 +24,7 @@ router.get('/tutores', (req, res) => {
 });
 router.post('/tutores', (req, res) => {
   const { nome, telefone, email, cpf } = req.body;
-  const cpfLimpo = String(cpf || '').replace(/\\D/g, '');
+  const cpfLimpo = String(cpf || '').replace(/\D/g, '');
   if (!nome || !telefone || cpfLimpo.length !== 11) return res.status(400).json({ erro: 'Nome, telefone e CPF válido (11 números) são obrigatórios.' });
   let cpfCriptografado;
   try { cpfCriptografado = criptografarCPF(cpfLimpo); }
@@ -36,7 +36,7 @@ router.post('/tutores', (req, res) => {
 });
 router.put('/tutores/:id', (req, res) => {
   const { nome, telefone, email, cpf } = req.body;
-  const cpfLimpo = String(cpf || '').replace(/\\D/g, '');
+  const cpfLimpo = String(cpf || '').replace(/\D/g, '');
   if (!nome || !telefone || cpfLimpo.length !== 11) return res.status(400).json({ erro: 'Nome, telefone e CPF válido (11 números) são obrigatórios.' });
   let cpfCriptografado;
   try { cpfCriptografado = criptografarCPF(cpfLimpo); }
