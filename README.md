@@ -21,9 +21,11 @@ Acesse: http://localhost:3000
 - Apresentação institucional da equipe.
 - Dicas de saúde, alimentação e bem-estar.
 - Perguntas frequentes.
+- Formulário público para cadastrar tutor e animal e solicitar agendamento.
+- Seleção de veterinário e validação de conflito de horário.
 - Área de contato e navegação adaptada para celular.
 
-O site é público: **o visitante não precisa fazer login**. O menu, os links das seções, o FAQ e o ano do rodapé funcionam com JavaScript.
+O site é público: **o visitante não precisa fazer login**. O tutor informa seus dados e os dados do pet e solicita uma consulta pelo formulário. O sistema grava tutor, animal e agendamento no SQLite por meio da API. A clínica deve confirmar a solicitação com o tutor.
 
 ## Estrutura principal
 
@@ -41,7 +43,9 @@ O site é público: **o visitante não precisa fazer login**. O menu, os links d
 2. Inicie com `npm start`.
 3. Abra `http://localhost:3000`.
 4. Teste os links do menu, navegação entre seções e perguntas frequentes.
-5. Redimensione a tela para conferir o menu para celular.
+5. Preencha o formulário de tutor, animal e agendamento e confira a mensagem de retorno.
+6. Tente solicitar duas consultas para o mesmo veterinário no mesmo horário para verificar o bloqueio de conflito.
+7. Redimensione a tela para conferir o menu para celular.
 
 ## Personalização necessária
 
