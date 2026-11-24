@@ -1,108 +1,97 @@
 <!doctype html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Almoxarifado</title>
-    <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clínica Veterinária</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <main>
+<main>
+  <section id="login">
+    <div class="titulo"><h1>Clínica Veterinária</h1><p>Sistema de gestão e atendimento</p></div>
+    <form id="formLogin">
+      <label for="email">E-mail</label><input id="email" type="email" placeholder="admin@teste.com" required>
+      <label for="senha">Senha</label><input id="senha" type="password" placeholder="Senha" required>
+      <button type="submit">Entrar</button>
+    </form>
+    <p id="mensagem"></p>
+    <small><strong>Acesso de demonstração:</strong> admin@teste.com / 123456</small>
+  </section>
 
+  <section id="sistema" hidden>
+    <header><div><h1>Clínica Veterinária</h1><span>Gestão de tutores, animais e consultas</span></div><div><span id="usuario"></span> <button id="sair" type="button">Sair</button></div></header>
+    <nav>
+      <button data-tela="tutores">Tutores</button>
+      <button data-tela="animais">Animais</button>
+      <button data-tela="veterinarios">Veterinários</button>
+      <button data-tela="consultas">Consultas</button>
+      <button data-tela="prontuarios">Prontuários</button>
+    </nav><hr>
 
-<!-- ================================================ Tela de Login ================================================   -->
+    <section id="tutores" class="tela">
+      <h2>Cadastro de tutores</h2>
+      <form id="formTutor">
+        <input id="tutorNome" placeholder="Nome completo" required>
+        <input id="tutorTelefone" placeholder="Telefone" required>
+        <input id="tutorEmail" type="email" placeholder="E-mail">
+        <button type="submit">Cadastrar tutor</button>
+      </form>
+      <input id="buscaTutor" placeholder="Pesquisar tutor">
+      <table><thead><tr><th>Nome</th><th>Telefone</th><th>E-mail</th><th>Ações</th></tr></thead><tbody id="listaTutores"></tbody></table>
+    </section>
 
-        <section id="login">
-            <div class="titulo">
-            <h1>Almoxarifado 📦</h1>
-            </div>
-           
-            <form id="formLogin">
-                <span>E-mail:</span>
-                <input id="email" type="email" placeholder="admin@teste.com" required />
-                
-                <span>Senha:</span>
-                <input id="senha" type="password"
-                    placeholder="Senha" required />
-                    <button>Entrar</button>
-            </form>
-            <p id="mensagem"></p>
-            <small><strong>Teste:</strong> admin@teste.com / 123456</small>
-        </section>
+    <section id="animais" class="tela" hidden>
+      <h2>Cadastro de animais</h2>
+      <form id="formAnimal">
+        <input id="animalNome" placeholder="Nome do animal" required>
+        <select id="animalEspecie" required><option value="">Espécie</option><option>Cachorro</option><option>Gato</option><option>Ave</option><option>Réptil</option><option>Outro</option></select>
+        <input id="animalRaca" placeholder="Raça">
+        <input id="animalIdade" type="number" min="0" placeholder="Idade (anos)">
+        <select id="animalTutor" required><option value="">Selecione o tutor</option></select>
+        <button type="submit">Cadastrar animal</button>
+      </form>
+      <input id="buscaAnimal" placeholder="Pesquisar animal ou espécie">
+      <table><thead><tr><th>Animal</th><th>Espécie</th><th>Raça</th><th>Idade</th><th>Tutor</th><th>Ações</th></tr></thead><tbody id="listaAnimais"></tbody></table>
+    </section>
 
-<!-- ================================================ Tela Inicial ================================================   -->
+    <section id="veterinarios" class="tela" hidden>
+      <h2>Cadastro de veterinários</h2>
+      <form id="formVeterinario">
+        <input id="vetNome" placeholder="Nome do veterinário" required>
+        <input id="vetCrmv" placeholder="CRMV" required>
+        <input id="vetEspecialidade" placeholder="Especialidade">
+        <button type="submit">Cadastrar veterinário</button>
+      </form>
+      <table><thead><tr><th>Nome</th><th>CRMV</th><th>Especialidade</th><th>Ações</th></tr></thead><tbody id="listaVeterinarios"></tbody></table>
+    </section>
 
+    <section id="consultas" class="tela" hidden>
+      <h2>Agendamento de consultas</h2>
+      <form id="formConsulta">
+        <select id="consultaAnimal" required><option value="">Animal</option></select>
+        <select id="consultaVet" required><option value="">Veterinário</option></select>
+        <input id="consultaData" type="datetime-local" required>
+        <input id="consultaMotivo" placeholder="Motivo da consulta" required>
+        <button type="submit">Agendar consulta</button>
+      </form>
+      <p id="avisoConsulta"></p>
+      <table><thead><tr><th>Animal</th><th>Tutor</th><th>Veterinário</th><th>Data</th><th>Motivo</th><th>Status</th><th>Ações</th></tr></thead><tbody id="listaConsultas"></tbody></table>
+    </section>
 
-        <section id="sistema" hidden>
-            <header>
-                <h1>Sistema de Almoxarifado</h1>
-                <span id="usuario"></span><button id="sair">Sair</button>
-            </header>
-            <nav>
-                <button data-tela="produtos">Produtos</button><button data-tela="estoque">Estoque</button><button
-                    data-tela="historico">Histórico</button>
-            </nav><hr>
-
-    <!-- ================================================ Seção de Produtos ================================================   -->
-
-            <section id="produtos" class="tela">
-                <h2>Produtos</h2>
-                <form id="formProduto">
-                    <input id="nome" placeholder="Nome" required /><input id="categoria" placeholder="Categoria"
-                        required /><input id="quantidade" type="number" min="0" placeholder="Quantidade"
-                        required /><input id="minimo" type="number" min="0" placeholder="Mínimo"
-                        required /><button>Salvar</button><br>
-                </form>
-                <input id="busca" placeholder="Pesquisar 🔎" />
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Categoria</th>
-                            <th>Quantidade</th>
-                            <th>Mínimo</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="listaProdutos"></tbody>
-                </table>
-            </section>
-
-    <!-- ================================================ Seção de Movimentação ================================================   -->
-
-            <section id="estoque" class="tela" hidden>
-                <h2>Movimentação</h2>
-                <form id="formMov">
-                    <select id="produto" required></select><select id="tipo">
-                        <option value="entrada">Entrada</option>
-                        <option value="saida">Saída</option>
-                    </select><input id="qtdMov" type="number" min="1" required
-                        placeholder="Quantidade" /><button>Registrar</button>
-                </form>
-                <p id="alerta"></p>
-            </section>
-
-    <!-- ================================================ Seção de Histórico ================================================   -->
-            <section id="historico" class="tela" hidden>
-                <h2>Histórico</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Produto</th>
-                            <th>Usuário</th>
-                            <th>Tipo</th>
-                            <th>Quantidade</th>
-                            <th>Data</th>
-                        </tr>
-                    </thead>
-                    <tbody id="listaHistorico"></tbody>
-                </table>
-            </section>
-        </section>
-    </main>
-    <script src="script.js"></script>
+    <section id="prontuarios" class="tela" hidden>
+      <h2>Prontuário do animal</h2>
+      <form id="formProntuario">
+        <select id="prontuarioAnimal" required><option value="">Animal</option></select>
+        <select id="prontuarioVet" required><option value="">Veterinário</option></select>
+        <input id="prontuarioDescricao" placeholder="Descrição / diagnóstico" required>
+        <input id="prontuarioTratamento" placeholder="Tratamento / observações">
+        <button type="submit">Registrar prontuário</button>
+      </form>
+      <div id="historicoProntuario"></div>
+    </section>
+  </section>
+</main>
+<script src="script.js"></script>
 </body>
-
 </html>
