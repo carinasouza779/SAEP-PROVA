@@ -20,6 +20,7 @@ Apresentar uma clínica veterinária ao público, disponibilizando informações
 - RF12 — Disponibilizar uma seção de contato.
 - RF13 — Permitir navegação entre as seções pelo menu.
 - RF14 — Adaptar a navegação e o conteúdo para dispositivos móveis.
+- RF15 — Solicitar e registrar o CPF do tutor durante o cadastro, armazenando esse dado de forma criptografada no banco de dados.
 
 ## 3. Requisitos não funcionais
 
@@ -28,11 +29,14 @@ Apresentar uma clínica veterinária ao público, disponibilizando informações
 - RNF03 — Navegação simples e acessível.
 - RNF04 — Utilizar HTML, CSS e JavaScript no front-end.
 - RNF05 — Utilizar Node.js e Express para disponibilizar o site localmente.
+- RNF06 — Proteger o CPF dos tutores por meio de criptografia antes da gravação no banco de dados, mantendo a chave criptográfica fora do código-fonte.
 
 ## 4. Regras e cuidados com o conteúdo
 
 - O visitante não precisa realizar login para consultar as informações ou enviar solicitação de agendamento.
 - O formulário cadastra o tutor, o animal e a consulta no banco SQLite.
+- O CPF deve ser criptografado no servidor antes de ser gravado no SQLite. O valor não deve ser salvo em texto puro nem exibido desnecessariamente em consultas ou respostas da API.
+- A chave usada na criptografia deve ser armazenada em variável de ambiente (por exemplo, em um arquivo `.env` não versionado) e não pode ser publicada no GitHub.
 - O mesmo veterinário não pode receber duas consultas agendadas no mesmo horário.
 - O agendamento enviado é uma solicitação e deve ser confirmado pela clínica.
 - Informações de endereço, telefone, horários e profissionais devem ser preenchidas com dados oficiais.
