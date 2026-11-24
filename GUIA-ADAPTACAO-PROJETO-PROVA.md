@@ -356,3 +356,35 @@ Teste cada operação no navegador ou em uma ferramenta de requisições e confi
 7. Só depois faça ajustes visuais, se sobrar tempo.
 
 **Regra principal:** altere o mínimo necessário, aproveite o que já funciona e teste cada etapa antes de avançar. Se o enunciado pedir algo diferente do exemplo, o enunciado sempre tem prioridade.
+
+
+---
+
+## 12. Exemplo de adaptação: clínica veterinária
+
+O projeto desta branch também contém uma versão funcional de exemplo para clínica veterinária. Ela utiliza:
+
+| Entidade | Para que serve |
+|---|---|
+| `tutores` | Dados dos responsáveis pelos animais |
+| `animais` | Cadastro dos pets e vínculo com o tutor |
+| `veterinarios` | Profissionais e número do CRMV |
+| `consultas` | Agendamentos, motivo e situação |
+| `prontuarios` | Histórico, diagnóstico e tratamento |
+| `usuarios` | Acesso de demonstração ao sistema |
+
+Arquivos adaptados:
+- `src/database/sqlite.js`: cria as tabelas da clínica.
+- `schema.sql`: contém a estrutura SQL.
+- `src/routes/index.js`: rotas CRUD e regras de negócio.
+- `public/index.html`: formulários e telas.
+- `public/script.js`: chamadas `fetch` para a API.
+- `docs/CLINICA-VETERINARIA.md`: requisitos, regras, DER e testes.
+
+Rotas principais: `/api/tutores`, `/api/animais`, `/api/veterinarios`, `/api/consultas` e `/api/prontuarios`.
+
+Regras importantes desse exemplo: todo animal precisa de tutor; consulta precisa de animal e veterinário; o mesmo veterinário não pode ter duas consultas agendadas no mesmo horário; o prontuário fica ligado ao animal e ao veterinário.
+
+Para executar a versão veterinária, siga o clone da branch `preparacao/saep-base`, rode `npm install` e `npm start`, e acesse `http://localhost:3000`. O banco `clinica_veterinaria.db` é criado automaticamente. Login de demonstração: `admin@teste.com` / `123456`.
+
+O exemplo serve como base de estudo: adapte os campos e regras se o enunciado da prova pedir algo diferente.
