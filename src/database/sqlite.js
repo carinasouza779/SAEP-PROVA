@@ -17,8 +17,14 @@ db.serialize(() => {
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nome TEXT NOT NULL,
     telefone TEXT NOT NULL,
-    email TEXT
+    email TEXT,
+    cpf TEXT
   )`);
+
+  // Compatibilidade com bancos criados antes da inclusão do CPF.
+  db.run('ALTER TABLE tutores ADD COLUMN cpf TEXT', (erro) => {
+    if (erro && !erro.message.includes('duplicate column name')) console.error('Erro ao atualizar tabela tutores:', erro.message);
+  });
 
   db.run(`CREATE TABLE IF NOT EXISTS animais (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
