@@ -2,6 +2,7 @@
 const express = require('express');
 const db = require('../database/sqlite');
 const router = express.Router();
+const { criptografarCPF } = require('../utils/criptografia');
 
 // Login simples para o ambiente de demonstração da prova.
 router.post('/login', (req, res) => {
@@ -16,23 +17,31 @@ router.post('/login', (req, res) => {
 
 // TUTORES: listar, cadastrar, editar e excluir.
 router.get('/tutores', (req, res) => {
-  db.all('SELECT * FROM tutores WHERE nome LIKE ? ORDER BY nome', [`%${req.query.busca || ''}%`], (e, rows) => {
+  db.all('SELECT id,nome,telefone,email FROM tutores WHERE nome LIKE ? ORDER BY nome', [`%${req.query.busca || ''}%`], (e, rows) => {
     if (e) return res.status(500).json({ erro: e.message });
     res.json(rows);
   });
 });
 router.post('/tutores', (req, res) => {
-  const { nome, telefone, email } = req.body;
-  if (!nome || !telefone) return res.status(400).json({ erro: 'Nome e telefone do tutor são obrigatórios.' });
-  db.run('INSERT INTO tutores(nome,telefone,email) VALUES(?,?,?)', [nome, telefone, email || ''], function(e) {
+  const { nome, telefone, email, cpf } = req.body;
+  const cpfLimpo = String(cpf || '').replace(/\\D/g, '');
+  if (!nome || !telefone || cpfLimpo.length !== 11) return res.status(400).json({ erro: 'Nome, telefone e CPF válido (11 números) são obrigatórios.' });
+  let cpfCriptografado;
+  try { cpfCriptografado = criptografarCPF(cpfLimpo); }
+  catch (erro) { return res.status(500).json({ erro: 'Criptografia do CPF não configurada. Defina CPF_ENCRYPTION_KEY no arquivo .env.' }); }
+  db.run('INSERT INTO tutores(nome,telefone,email,cpf) VALUES(?,?,?,?)', [nome, telefone, email || '', cpfCriptografado], function(e) {
     if (e) return res.status(400).json({ erro: e.message });
     res.status(201).json({ mensagem: 'Tutor cadastrado.', id: this.lastID });
   });
 });
 router.put('/tutores/:id', (req, res) => {
-  const { nome, telefone, email } = req.body;
-  if (!nome || !telefone) return res.status(400).json({ erro: 'Nome e telefone são obrigatórios.' });
-  db.run('UPDATE tutores SET nome=?,telefone=?,email=? WHERE id=?', [nome, telefone, email || '', req.params.id], function(e) {
+  const { nome, telefone, email, cpf } = req.body;
+  const cpfLimpo = String(cpf || '').replace(/\\D/g, '');
+  if (!nome || !telefone || cpfLimpo.length !== 11) return res.status(400).json({ erro: 'Nome, telefone e CPF válido (11 números) são obrigatórios.' });
+  let cpfCriptografado;
+  try { cpfCriptografado = criptografarCPF(cpfLimpo); }
+  catch (erro) { return res.status(500).json({ erro: 'Criptografia do CPF não configurada. Defina CPF_ENCRYPTION_KEY no arquivo .env.' }); }
+  db.run('UPDATE tutores SET nome=?,telefone=?,email=?,cpf=? WHERE id=?', [nome, telefone, email || '', cpfCriptografado, req.params.id], function(e) {
     if (e) return res.status(400).json({ erro: e.message });
     if (!this.changes) return res.status(404).json({ erro: 'Tutor não encontrado.' });
     res.json({ mensagem: 'Tutor atualizado.' });
