@@ -60,6 +60,8 @@ db.serialize(() => {
   )`);
 
   db.run("INSERT OR IGNORE INTO usuarios (nome,email,senha) VALUES ('Administrador','admin@teste.com','123456')");
+  // Profissional demonstrativo para testar o agendamento. Substitua pelos dados e CRMV reais da clínica.
+  db.run("INSERT OR IGNORE INTO veterinarios (nome,crmv,especialidade) VALUES ('Profissional demonstrativo - substituir','PENDENTE-CADASTRO','Clínica geral')");
 });
 
 module.exports = db;
