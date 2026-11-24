@@ -68,7 +68,7 @@ formAgendamento.addEventListener('submit', async event => {
     const tutor = await enviar('tutores', {
       nome: dados.get('tutorNome').trim(),
       telefone: dados.get('telefone').trim(),
-      cpf: dados.get('cpf').replace(/\\D/g, ''),
+      cpf: dados.get('cpf').replace(/\D/g, ''),
       email: dados.get('email').trim()
     });
     const animal = await enviar('animais', {
