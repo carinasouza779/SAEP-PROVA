@@ -26,6 +26,15 @@ Reaproveite a estrutura técnica (organização de pastas, conexão com SQLite, 
 - `docs/casos-de-teste.modelo.md`: tabela inicial de testes.
 - `sql/LEIA-ME.md`: orientações para adaptar o script SQLite.
 - `temas/veterinaria/README.md`: exemplo de levantamento de entidades para veterinária.
+- `temas/oficina-mecanica/README.md`: exemplo para oficina mecânica.
+- `temas/clinica-medica/README.md`: exemplo para clínica médica.
+- `temas/biblioteca/README.md`: exemplo para biblioteca.
+- `temas/escola/README.md`: exemplo para escola.
+- `temas/restaurante/README.md`: exemplo para restaurante.
+- `temas/salao-de-beleza/README.md`: exemplo para salão de beleza.
+- `temas/hotel/README.md`: exemplo para hotel.
+- `temas/almoxarifado/README.md`: exemplo para almoxarifado.
+- `temas/controle-de-vendas/README.md`: exemplo para controle de vendas.
 
 ## Antes de usar
 
