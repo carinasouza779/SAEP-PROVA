@@ -3,95 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Clínica Veterinária</title>
+  <meta name="description" content="Conheça nossos serviços veterinários, orientações de cuidado e informações para a saúde do seu pet.">
+  <title>Clínica Veterinária | Cuidado e carinho para seu pet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<main>
-  <section id="login">
-    <div class="titulo"><h1>Clínica Veterinária</h1><p>Sistema de gestão e atendimento</p></div>
-    <form id="formLogin">
-      <label for="email">E-mail</label><input id="email" type="email" placeholder="admin@teste.com" required>
-      <label for="senha">Senha</label><input id="senha" type="password" placeholder="Senha" required>
-      <button type="submit">Entrar</button>
-    </form>
-    <p id="mensagem"></p>
-    <small><strong>Acesso de demonstração:</strong> admin@teste.com / 123456</small>
-  </section>
+  <header class="topo" id="inicio">
+    <a class="marca" href="#inicio" aria-label="Clínica Veterinária - início">
+      <span class="marca-icone">✚</span><span>Clínica <strong>Veterinária</strong><small>CUIDADO QUE FAZ BEM</small></span>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+    <nav class="menu" id="menu">
+      <a href="#inicio">Início</a><a href="#sobre">A clínica</a><a href="#servicos">Serviços</a><a href="#equipe">Nossa equipe</a><a href="#dicas">Dicas</a><a class="menu-contato" href="#contato">Contato</a>
+    </nav>
+  </header>
 
-  <section id="sistema" hidden>
-    <header><div><h1>Clínica Veterinária</h1><span>Gestão de tutores, animais e consultas</span></div><div><span id="usuario"></span> <button id="sair" type="button">Sair</button></div></header>
-    <nav>
-      <button data-tela="tutores">Tutores</button>
-      <button data-tela="animais">Animais</button>
-      <button data-tela="veterinarios">Veterinários</button>
-      <button data-tela="consultas">Consultas</button>
-      <button data-tela="prontuarios">Prontuários</button>
-    </nav><hr>
-
-    <section id="tutores" class="tela">
-      <h2>Cadastro de tutores</h2>
-      <form id="formTutor">
-        <input id="tutorNome" placeholder="Nome completo" required>
-        <input id="tutorTelefone" placeholder="Telefone" required>
-        <input id="tutorEmail" type="email" placeholder="E-mail">
-        <button type="submit">Cadastrar tutor</button>
-      </form>
-      <input id="buscaTutor" placeholder="Pesquisar tutor">
-      <table><thead><tr><th>Nome</th><th>Telefone</th><th>E-mail</th><th>Ações</th></tr></thead><tbody id="listaTutores"></tbody></table>
+  <main>
+    <section class="hero">
+      <div class="hero-texto">
+        <span class="etiqueta">SAÚDE, PROTEÇÃO E CARINHO</span>
+        <h1>Seu pet merece<br>uma vida <em>mais feliz.</em></h1>
+        <p>Informação e cuidado em cada etapa da vida do seu melhor amigo. Conheça a clínica, nossos serviços e orientações para manter seu pet saudável.</p>
+        <div class="hero-acoes"><a class="botao" href="#servicos">Conheça os serviços <span>→</span></a><a class="link-seta" href="#sobre">Saiba mais sobre a clínica</a></div>
+        <div class="hero-destaques"><span>♡ Atendimento com carinho</span><span>✚ Saúde e prevenção</span></div>
+      </div>
+      <div class="hero-imagem"><img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1100&q=85" alt="Cachorro e gato juntos em um ambiente iluminado"><div class="selo"><strong>Amor</strong><span>em cada cuidado</span></div></div>
     </section>
 
-    <section id="animais" class="tela" hidden>
-      <h2>Cadastro de animais</h2>
-      <form id="formAnimal">
-        <input id="animalNome" placeholder="Nome do animal" required>
-        <select id="animalEspecie" required><option value="">Espécie</option><option>Cachorro</option><option>Gato</option><option>Ave</option><option>Réptil</option><option>Outro</option></select>
-        <input id="animalRaca" placeholder="Raça">
-        <input id="animalIdade" type="number" min="0" placeholder="Idade (anos)">
-        <select id="animalTutor" required><option value="">Selecione o tutor</option></select>
-        <button type="submit">Cadastrar animal</button>
-      </form>
-      <input id="buscaAnimal" placeholder="Pesquisar animal ou espécie">
-      <table><thead><tr><th>Animal</th><th>Espécie</th><th>Raça</th><th>Idade</th><th>Tutor</th><th>Ações</th></tr></thead><tbody id="listaAnimais"></tbody></table>
+    <section class="faixa-info" aria-label="Diferenciais"><div><b>♡</b><span><strong>Cuidado responsável</strong><small>Bem-estar em primeiro lugar</small></span></div><div><b>✚</b><span><strong>Prevenção</strong><small>Saúde para todas as fases</small></span></div><div><b>⌂</b><span><strong>Orientação</strong><small>Informação para os tutores</small></span></div></section>
+
+    <section class="secao sobre" id="sobre">
+      <div class="sobre-foto"><img src="https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?auto=format&fit=crop&w=900&q=85" alt="Veterinária cuidando de um cachorro"></div>
+      <div class="sobre-texto"><span class="etiqueta">QUEM SOMOS</span><h2>Mais que atendimento,<br><em>uma relação de confiança.</em></h2><p>A Clínica Veterinária tem como propósito valorizar a saúde e o bem-estar dos animais. Acreditamos que informação, prevenção e cuidado responsável fazem toda a diferença na vida dos pets.</p><p>Nosso espaço informativo reúne detalhes sobre cuidados veterinários, serviços e orientações para ajudar você a cuidar melhor do seu companheiro.</p><a class="link-seta" href="#contato">Fale com a clínica →</a></div>
     </section>
 
-    <section id="veterinarios" class="tela" hidden>
-      <h2>Cadastro de veterinários</h2>
-      <form id="formVeterinario">
-        <input id="vetNome" placeholder="Nome do veterinário" required>
-        <input id="vetCrmv" placeholder="CRMV" required>
-        <input id="vetEspecialidade" placeholder="Especialidade">
-        <button type="submit">Cadastrar veterinário</button>
-      </form>
-      <table><thead><tr><th>Nome</th><th>CRMV</th><th>Especialidade</th><th>Ações</th></tr></thead><tbody id="listaVeterinarios"></tbody></table>
+    <section class="secao servicos" id="servicos">
+      <div class="cabecalho-secao"><span class="etiqueta">COMO PODEMOS AJUDAR</span><h2>Cuidado completo para<br><em>quem faz parte da família.</em></h2><p>Conheça alguns dos serviços e áreas de cuidado veterinário.</p></div>
+      <div class="grade-servicos">
+        <article class="cartao-servico"><span class="servico-icone">✚</span><h3>Consultas veterinárias</h3><p>Acompanhamento da saúde, avaliação clínica e orientações para o cuidado do seu pet.</p></article>
+        <article class="cartao-servico"><span class="servico-icone">♡</span><h3>Vacinação</h3><p>Informações sobre prevenção de doenças e importância de manter a vacinação em dia.</p></article>
+        <article class="cartao-servico"><span class="servico-icone">⌕</span><h3>Exames</h3><p>Conheça a importância dos exames para auxiliar na avaliação e no diagnóstico.</p></article>
+        <article class="cartao-servico"><span class="servico-icone">✿</span><h3>Cuidados preventivos</h3><p>Dicas de higiene, alimentação e hábitos saudáveis para todas as fases da vida.</p></article>
+      </div>
+      <p class="nota-servicos">A disponibilidade dos serviços deve ser confirmada diretamente com a clínica.</p>
     </section>
 
-    <section id="consultas" class="tela" hidden>
-      <h2>Agendamento de consultas</h2>
-      <form id="formConsulta">
-        <select id="consultaAnimal" required><option value="">Animal</option></select>
-        <select id="consultaVet" required><option value="">Veterinário</option></select>
-        <input id="consultaData" type="datetime-local" required>
-        <input id="consultaMotivo" placeholder="Motivo da consulta" required>
-        <button type="submit">Agendar consulta</button>
-      </form>
-      <p id="avisoConsulta"></p>
-      <table><thead><tr><th>Animal</th><th>Tutor</th><th>Veterinário</th><th>Data</th><th>Motivo</th><th>Status</th><th>Ações</th></tr></thead><tbody id="listaConsultas"></tbody></table>
+    <section class="secao equipe" id="equipe">
+      <div class="equipe-texto"><span class="etiqueta">NOSSO COMPROMISSO</span><h2>Conhecimento e carinho<br><em>em todos os cuidados.</em></h2><p>O atendimento veterinário exige atenção, responsabilidade e respeito. Nossa proposta é oferecer informação clara para que os tutores entendam melhor as necessidades dos seus animais.</p><a class="botao botao-claro" href="#contato">Entre em contato</a></div>
+      <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=900&q=85" alt="Profissional veterinária sorrindo">
     </section>
 
-    <section id="prontuarios" class="tela" hidden>
-      <h2>Prontuário do animal</h2>
-      <form id="formProntuario">
-        <select id="prontuarioAnimal" required><option value="">Animal</option></select>
-        <select id="prontuarioVet" required><option value="">Veterinário</option></select>
-        <input id="prontuarioDescricao" placeholder="Descrição / diagnóstico" required>
-        <input id="prontuarioTratamento" placeholder="Tratamento / observações">
-        <button type="submit">Registrar prontuário</button>
-      </form>
-      <div id="historicoProntuario"></div>
+    <section class="secao dicas" id="dicas">
+      <div class="cabecalho-secao"><span class="etiqueta">INFORMAÇÃO TAMBÉM É CUIDADO</span><h2>Dicas para cuidar<br><em>melhor do seu pet.</em></h2></div>
+      <div class="grade-dicas">
+        <article class="dica"><img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=700&q=80" alt="Cachorro recebendo carinho"><div><span>SAÚDE</span><h3>Mantenha as vacinas em dia</h3><p>A vacinação ajuda a proteger os animais contra doenças. Converse com um médico-veterinário sobre o calendário adequado.</p></div></article>
+        <article class="dica"><img src="https://images.unsplash.com/photo-1589924691995-400dc9ecc119?auto=format&fit=crop&w=700&q=80" alt="Cão comendo em seu pote"><div><span>ALIMENTAÇÃO</span><h3>Ofereça alimentação adequada</h3><p>Escolha alimentos apropriados à espécie, idade e necessidades do animal. Evite oferecer alimentos sem orientação.</p></div></article>
+        <article class="dica"><img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=700&q=80" alt="Cachorro passeando ao ar livre"><div><span>BEM-ESTAR</span><h3>Estimule atividades e brincadeiras</h3><p>Atividades adequadas ajudam no bem-estar físico e mental. Respeite sempre os limites do seu pet.</p></div></article>
+      </div>
+      <p class="nota-servicos">As dicas são informativas e não substituem avaliação ou orientação de um médico-veterinário.</p>
     </section>
-  </section>
-</main>
-<script src="script.js"></script>
+
+    <section class="faq secao">
+      <div><span class="etiqueta">DÚVIDAS FREQUENTES</span><h2>Ficou com<br><em>alguma dúvida?</em></h2><p>Confira algumas orientações rápidas.</p></div>
+      <div class="perguntas">
+        <details><summary>Quando devo levar meu pet ao veterinário?</summary><p>É importante realizar consultas preventivas e procurar atendimento sempre que notar mudanças de comportamento, apetite ou sinais de desconforto.</p></details>
+        <details><summary>Com que frequência devo vacinar meu animal?</summary><p>O calendário depende da espécie, idade, histórico e condições de saúde. Peça orientação ao médico-veterinário.</p></details>
+        <details><summary>Posso dar medicamentos humanos ao meu pet?</summary><p>Não medique seu animal por conta própria. Alguns medicamentos de uso humano podem ser perigosos para os animais.</p></details>
+      </div>
+    </section>
+
+    <section class="contato" id="contato"><div><span class="etiqueta etiqueta-clara">ESTAMOS AQUI PARA AJUDAR</span><h2>O cuidado do seu pet<br>começa com informação.</h2><p>Entre em contato para consultar horários, endereço e disponibilidade de atendimento.</p></div><a class="botao botao-claro" href="mailto:">Entrar em contato <span>→</span></a></section>
+  </main>
+
+  <footer class="rodape"><a class="marca marca-rodape" href="#inicio"><span class="marca-icone">✚</span><span>Clínica <strong>Veterinária</strong><small>CUIDADO QUE FAZ BEM</small></span></a><p>Informação, prevenção e carinho pela saúde dos animais.</p><div class="rodape-links"><a href="#sobre">A clínica</a><a href="#servicos">Serviços</a><a href="#dicas">Dicas</a><a href="#contato">Contato</a></div><small>© <span id="ano"></span> Clínica Veterinária. Todos os direitos reservados.</small></footer>
+  <script src="script.js"></script>
 </body>
 </html>
