@@ -12,9 +12,14 @@ Apresentar uma clínica veterinária ao público, disponibilizando informações
 - RF04 — Apresentar informações sobre a equipe veterinária.
 - RF05 — Disponibilizar dicas de saúde, alimentação e bem-estar animal.
 - RF06 — Exibir perguntas frequentes com respostas expansíveis.
-- RF07 — Disponibilizar uma seção de contato.
-- RF08 — Permitir navegação entre as seções pelo menu.
-- RF09 — Adaptar a navegação e o conteúdo para dispositivos móveis.
+- RF07 — Permitir o cadastro dos dados do tutor.
+- RF08 — Permitir o cadastro dos dados do animal vinculado ao tutor.
+- RF09 — Permitir solicitar agendamento, selecionando profissional, data, horário e motivo.
+- RF10 — Consultar os profissionais cadastrados para preencher o formulário.
+- RF11 — Exibir retorno de sucesso ou erro após a solicitação.
+- RF12 — Disponibilizar uma seção de contato.
+- RF13 — Permitir navegação entre as seções pelo menu.
+- RF14 — Adaptar a navegação e o conteúdo para dispositivos móveis.
 
 ## 3. Requisitos não funcionais
 
@@ -26,7 +31,10 @@ Apresentar uma clínica veterinária ao público, disponibilizando informações
 
 ## 4. Regras e cuidados com o conteúdo
 
-- O visitante não precisa realizar login para consultar as informações.
+- O visitante não precisa realizar login para consultar as informações ou enviar solicitação de agendamento.
+- O formulário cadastra o tutor, o animal e a consulta no banco SQLite.
+- O mesmo veterinário não pode receber duas consultas agendadas no mesmo horário.
+- O agendamento enviado é uma solicitação e deve ser confirmado pela clínica.
 - Informações de endereço, telefone, horários e profissionais devem ser preenchidas com dados oficiais.
 - Dicas gerais não substituem avaliação ou orientação veterinária.
 - Serviços disponíveis devem ser confirmados diretamente com a clínica.
@@ -44,7 +52,7 @@ Apresentar uma clínica veterinária ao público, disponibilizando informações
 
 ## 6. Banco de dados e API para estudo
 
-O site público atual é informativo e não depende de login ou cadastro. O projeto mantém em `src/database/sqlite.js` e `src/routes/index.js` um exemplo separado de banco relacional e rotas CRUD para praticar adaptações solicitadas em exercícios.
+O site público é informativo, mas também oferece cadastro de tutor e pet e solicitação de agendamento. Os dados são enviados por `fetch` às rotas Express e salvos no SQLite. O endpoint de consultas verifica conflito de horário para o mesmo veterinário.
 
 Esse exemplo técnico não deve ser confundido com uma área de gerenciamento já integrada à página pública.
 
@@ -58,3 +66,5 @@ Esse exemplo técnico não deve ser confundido com uma área de gerenciamento j�
 6. Testar os links de contato após configurar o e-mail oficial.
 7. Conferir se o ano do rodapé é atualizado automaticamente.
 8. Testar o site em diferentes larguras de tela.
+9. Enviar uma solicitação válida e verificar se tutor, animal e consulta foram gravados.
+10. Tentar repetir o mesmo veterinário e horário e verificar a mensagem de conflito.
