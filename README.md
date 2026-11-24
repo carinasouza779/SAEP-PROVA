@@ -23,6 +23,7 @@ Acesse: http://localhost:3000
 - Perguntas frequentes.
 - Formulário público para cadastrar tutor e animal e solicitar agendamento.
 - Seleção de veterinário e validação de conflito de horário.
+- Requisito de segurança: o CPF do tutor deve ser criptografado antes de ser armazenado no SQLite.
 - Área de contato e navegação adaptada para celular.
 
 O site é público: **o visitante não precisa fazer login**. O tutor informa seus dados e os dados do pet e solicita uma consulta pelo formulário. O sistema grava tutor, animal e agendamento no SQLite por meio da API. A clínica deve confirmar a solicitação com o tutor.
