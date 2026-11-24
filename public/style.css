@@ -4,3 +4,19 @@
 @media(max-width:680px){.topo{height:70px;padding:0 20px}.menu-toggle{display:block;border:0;background:var(--menta);color:var(--verde);font-size:22px;width:42px;height:42px;border-radius:8px}.menu{display:none;position:absolute;top:70px;left:0;right:0;background:#fff;padding:18px 22px 23px;box-shadow:0 12px 20px #00000010;flex-direction:column;align-items:stretch;gap:0}.menu.aberto{display:flex}.menu a{padding:12px 5px}.menu .menu-contato{text-align:center;margin-top:8px}.hero{grid-template-columns:1fr;padding:48px 23px 42px;gap:35px}.hero h1{font-size:44px}.hero-imagem{height:290px;margin-left:18px}.selo{left:-18px}.hero-acoes{gap:15px}.faixa-info{grid-template-columns:1fr;padding:22px}.faixa-info>div{justify-content:flex-start;max-width:260px;margin:auto;width:100%}.secao{padding:62px 23px}.sobre,.equipe,.faq{grid-template-columns:1fr;gap:30px}.sobre-foto{height:290px}.grade-servicos{grid-template-columns:1fr 1fr;gap:10px}.cartao-servico{padding:19px 15px}.cartao-servico h3{font-size:15px}.equipe>img{height:280px}.grade-dicas{grid-template-columns:1fr}.dica img{height:210px}.faq h2{font-size:36px}.contato{padding:42px 23px;align-items:flex-start;flex-direction:column;gap:15px}.rodape{padding:35px 20px}.rodape-links{gap:14px;flex-wrap:wrap}}
 @media(max-width:390px){.grade-servicos{grid-template-columns:1fr}.hero h1{font-size:39px}.hero-acoes{align-items:flex-start;flex-direction:column}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
+
+/* Formulário público de cadastro de tutor e agendamento */
+.agendamento{background:var(--creme)}
+.form-agendamento{max-width:850px;margin:0 auto;background:#fff;border:1px solid var(--borda);border-radius:14px;padding:34px;box-shadow:0 15px 45px #263d300b}
+.form-agendamento h3{font:900 18px var(--titulo);color:var(--verde);margin:24px 0 14px}
+.form-agendamento h3:first-child{margin-top:0}
+.campos-form{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+.campos-form label{display:flex;flex-direction:column;gap:7px;font-size:12px;font-weight:700;color:var(--texto)}
+.campos-form input,.campos-form select,.campos-form textarea{width:100%;border:1px solid var(--borda);border-radius:7px;padding:12px;font:13px var(--fonte);color:var(--texto);background:#fff;outline:none}
+.campos-form input:focus,.campos-form select:focus,.campos-form textarea:focus{border-color:var(--verde);box-shadow:0 0 0 3px #236b5a18}
+.campo-largo{grid-column:1/-1}
+.form-agendamento button:disabled{opacity:.6;cursor:wait}
+.retorno-form{font-size:13px;font-weight:700;margin:14px 0 0}
+.retorno-form.sucesso{color:#23734d}.retorno-form.erro{color:#b42318}
+.aviso-form{display:block;color:var(--suave);font-size:10px;margin-top:12px}
+@media(max-width:600px){.form-agendamento{padding:22px 17px}.campos-form{grid-template-columns:1fr}.campo-largo{grid-column:auto}}
