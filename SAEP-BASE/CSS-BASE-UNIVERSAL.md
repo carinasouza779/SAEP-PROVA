@@ -1,20 +1,14 @@
 # Como usar o CSS universal do SAEP
 
-O arquivo `public/saep-base.css` foi criado para servir como ponto de partida visual em sistemas de temas diferentes (estoque, clínica, biblioteca, escola, oficina etc.).
+O CSS universal fica no arquivo principal `public/style.css`. Ele serve como ponto de partida visual para sistemas de temas diferentes, como estoque, clínica, biblioteca, escola ou oficina.
 
 ## Como ativar
 
-No arquivo `public/index.html`, dentro de `<head>`, carregue o CSS base:
-
-```html
-<link rel="stylesheet" href="saep-base.css">
-```
-
-Se o HTML já carregar outro CSS, coloque o link do `saep-base.css` depois dele para que as regras da base tenham prioridade quando houver conflito. Não é necessário apagar o CSS antigo.
+O arquivo `public/index.html` já carrega `style.css`. Portanto, não precisa adicionar outro link no HTML nem criar um segundo arquivo CSS.
 
 ## O que ele já organiza
 
-- Fundo, área principal e conteúdo centralizado.
+- Fundo, área principal e conteúdo.
 - Cabeçalhos, navegação e seções.
 - Formulários, campos, selects e botões.
 - Tabelas com rolagem em telas pequenas.
@@ -24,7 +18,7 @@ Se o HTML já carregar outro CSS, coloque o link do `saep-base.css` depois dele 
 
 ## Como adaptar para qualquer tema
 
-A base usa nomes genéricos e variáveis CSS. Por padrão, usa tons neutros para não ficar presa a um tema específico. Se o enunciado pedir uma cor, altere somente as variáveis no começo do arquivo, dentro de `:root`:
+Por padrão, o CSS usa tons neutros para não ficar preso a um segmento específico. Se o enunciado exigir uma cor, altere somente as variáveis no começo de `public/style.css`, dentro de `:root`:
 
 - `--cor-principal`: cor dos botões e elementos principais.
 - `--cor-principal-hover`: cor ao passar o mouse.
@@ -34,7 +28,7 @@ A base usa nomes genéricos e variáveis CSS. Por padrão, usa tons neutros para
 - `--cor-texto`: textos principais.
 - `--cor-texto-suave`: textos secundários.
 
-Se não houver exigência de identidade visual, mantenha os valores padrão. Para novas telas, reutilize as classes `.card`, `.cartao`, `.painel`, `.acoes`, `.sucesso`, `.erro` e `.aviso`.
+Se não houver exigência visual, mantenha os valores padrão. Para novas telas, reutilize as classes `.card`, `.cartao`, `.painel`, `.acoes`, `.sucesso`, `.erro` e `.aviso`.
 
 ## Exemplo de uma nova tela
 
@@ -53,6 +47,4 @@ Se não houver exigência de identidade visual, mantenha os valores padrão. Par
 
 ## Importante na prova
 
-O CSS cuida apenas da aparência. Ele não cria funcionalidades, rotas, tabelas do banco ou validações. Preserve os IDs usados pelo JavaScript e pelo backend. Adapte os textos, campos, entidades e regras conforme o enunciado, sem perder tempo reconstruindo o visual do zero.
-
-A base foi adicionada como arquivo novo; os arquivos existentes do projeto não precisam ser substituídos.
+O CSS cuida apenas da aparência. Ele não cria funcionalidades, rotas, tabelas do banco ou validações. Preserve os IDs usados pelo JavaScript e pelo backend. Adapte textos, campos, entidades e regras conforme o enunciado, sem perder tempo reconstruindo o visual do zero.
