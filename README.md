@@ -1,6 +1,6 @@
-# SAEP Prova — Sistema de Clínica Veterinária
+# SAEP Prova — Site Informativo de Clínica Veterinária
 
-Projeto-base adaptado para gerenciamento de uma clínica veterinária, utilizando **Node.js, Express e SQLite**.
+Projeto de estudo adaptado para apresentar uma clínica veterinária ao público, utilizando **HTML, CSS, JavaScript, Node.js, Express e SQLite**.
 
 ## Como executar
 
@@ -13,56 +13,45 @@ npm start
 
 Acesse: http://localhost:3000
 
-**Acesso de demonstração:** `admin@teste.com` / `123456`.
+## O que o visitante encontra
 
-## Funcionalidades
+- Página inicial com apresentação da clínica.
+- Seção sobre a clínica e seu compromisso com o bem-estar animal.
+- Informações sobre consultas, vacinação, exames e prevenção.
+- Apresentação institucional da equipe.
+- Dicas de saúde, alimentação e bem-estar.
+- Perguntas frequentes.
+- Área de contato e navegação adaptada para celular.
 
-- Login de demonstração.
-- Cadastro, consulta, edição e exclusão de tutores.
-- Cadastro, consulta, edição e exclusão de animais, vinculados a um tutor.
-- Cadastro, consulta, edição e exclusão de veterinários.
-- Agendamento de consultas.
-- Verificação de conflito de horário para o mesmo veterinário.
-- Alteração do status da consulta para Agendada, Concluída ou Cancelada.
-- Registro e consulta de prontuários por animal.
+O site é público: **o visitante não precisa fazer login**. O menu, os links das seções, o FAQ e o ano do rodapé funcionam com JavaScript.
 
 ## Estrutura principal
 
-- `index.js`: inicia o Express e disponibiliza os arquivos públicos.
-- `src/database/sqlite.js`: cria/conecta o banco e as tabelas.
-- `src/routes/index.js`: rotas da API e operações CRUD.
-- `public/index.html`: telas e formulários.
-- `public/script.js`: integração do front-end com a API via fetch.
-- `public/style.css`: estilos.
-- `schema.sql`: estrutura relacional do banco.
-- `clinica_veterinaria.db`: arquivo SQLite criado automaticamente ao iniciar.
+- `index.js`: inicia o servidor Express.
+- `public/index.html`: conteúdo e seções do site.
+- `public/style.css`: identidade visual e responsividade.
+- `public/script.js`: menu mobile, FAQ nativo e interações da página.
+- `src/database/sqlite.js`: exemplo de conexão e criação de tabelas SQLite.
+- `src/routes/index.js`: exemplo de rotas CRUD para estudo e adaptação de API.
+- `schema.sql`: modelo relacional de referência.
 
-## Rotas principais
+## Executar e testar
 
-| Método | Rota | Função |
-|---|---|---|
-| POST | /api/login | validar acesso de demonstração |
-| GET/POST | /api/tutores | listar e cadastrar tutores |
-| PUT/DELETE | /api/tutores/:id | editar e excluir tutor |
-| GET/POST | /api/animais | listar e cadastrar animais |
-| PUT/DELETE | /api/animais/:id | editar e excluir animal |
-| GET/POST | /api/veterinarios | listar e cadastrar veterinários |
-| PUT/DELETE | /api/veterinarios/:id | editar e excluir veterinário |
-| GET/POST | /api/consultas | listar e agendar consultas |
-| PUT | /api/consultas/:id/status | concluir ou cancelar consulta |
-| GET | /api/prontuarios/:animal_id | consultar histórico do animal |
-| POST | /api/prontuarios | registrar atendimento |
+1. Instale as dependências com `npm install`.
+2. Inicie com `npm start`.
+3. Abra `http://localhost:3000`.
+4. Teste os links do menu, navegação entre seções e perguntas frequentes.
+5. Redimensione a tela para conferir o menu para celular.
 
-## Banco de dados e relacionamentos
+## Personalização necessária
 
-As tabelas são `usuarios`, `tutores`, `animais`, `veterinarios`, `consultas` e `prontuarios`. Um tutor pode possuir vários animais; um animal pode ter várias consultas e prontuários; um veterinário pode atender várias consultas e registrar vários prontuários.
+- Troque o nome genérico pela identificação oficial da clínica.
+- Atualize e-mail, telefone, endereço, horários e dados reais da equipe.
+- As imagens atuais são referências externas do Unsplash e precisam de internet para carregar.
+- Configure o endereço de e-mail no link de contato quando a clínica fornecer o dado correto.
 
-Consulte `docs/CLINICA-VETERINARIA.md` para requisitos, regras de negócio e DER.
+## Observação sobre API e banco
 
-## Observações para a prova
+A página pública é informativa e não utiliza login para visitantes. As rotas e tabelas CRUD que permanecem em `src/` são uma base de estudo para praticar Node.js, Express, SQLite e operações de cadastro. Elas não são apresentadas como funcionalidades públicas do site.
 
-- Leia o enunciado e ajuste campos, nomes e regras conforme o que for solicitado.
-- Teste cada rota e cada operação antes de mexer na aparência.
-- O login é simplificado para demonstração e estudo; não é um modelo de autenticação seguro para produção.
-- Faça o clone e instale as dependências antes da prova caso não haja Wi-Fi disponível.
-- Guia geral: `GUIA-ADAPTACAO-PROJETO-PROVA.md`.
+Este projeto é demonstrativo. As informações e imagens devem ser substituídas e revisadas antes de publicar como site oficial de uma clínica real.
