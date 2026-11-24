@@ -40,6 +40,31 @@ UPDATE produtos SET quantidade = 15 WHERE id = 1;
 DELETE FROM produtos WHERE id = 1;
 ```
 
+
+
+### Como visualizar e editar dados pelo SQLite Editor no VS Code
+
+Na extensão SQLite Editor, abra o arquivo do banco (por exemplo, `almoxarifado.db`) e selecione a tabela que deseja consultar, como `movimentacoes`.
+
+- A grade à esquerda mostra os registros que já estão salvos na tabela.
+- Na área de consulta SQL, escreva um comando, como `SELECT * FROM movimentacoes;`, e clique no botão de executar (ícone de ▶) para atualizar a consulta e visualizar os registros.
+- O formulário inferior com o comando `INSERT INTO` serve para adicionar um novo registro. Preencha os campos e execute a inserção.
+- Para editar um registro que já existe, use `UPDATE` e identifique qual registro será alterado com `WHERE`. Exemplo:
+
+```sql
+UPDATE movimentacoes
+SET quantidade = 5
+WHERE id = 1;
+```
+
+- Para conferir a alteração, execute novamente:
+
+```sql
+SELECT * FROM movimentacoes;
+```
+
+**Atenção:** sempre confira o campo usado no `WHERE` antes de executar um `UPDATE` ou `DELETE`. Sem essa condição, você pode alterar ou excluir vários registros da tabela. Os nomes `movimentacoes`, `quantidade` e `id` são apenas exemplos: use os nomes que existem no seu banco.
+
 ## 3. Criar e modificar rotas no Node.js
 
 As rotas recebem as solicitações do front-end e executam ações no servidor.
